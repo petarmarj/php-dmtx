@@ -5,12 +5,19 @@ namespace Dmtx;
 use Symfony\Component\Process\Process;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 
-
 abstract class AbstractDmtx
 {
-    protected $options = [];
-    protected $arguments = [];
-    protected $messages = [];
+    protected array $options = [];
+
+    /**
+     * @var array
+     */
+    protected array $arguments = [];
+
+    /**
+     * @var array
+     */
+    protected array $messages = [];
 
     public function __construct(array $options = [])
     {
@@ -22,6 +29,9 @@ abstract class AbstractDmtx
         $this->options = $resolver->resolve($options);
     }
 
+    /**
+     * @return void
+     */
     protected function setDefaultOptions(OptionsResolver $resolver)
     {
         $resolver->setRequired('command');
@@ -41,7 +51,7 @@ abstract class AbstractDmtx
         return $this->options[$argument];
     }
 
-    protected function getProcess($cmd, array $extras = [], $input = null)
+    protected function getProcess($cmd, array $extras = [], $input = null): Process
     {
         $cmdArguments = [$cmd];
 
@@ -76,15 +86,13 @@ abstract class AbstractDmtx
         return $process;
     }
 
-    private function getFormattedParameter($key, $value)
+    private function getFormattedParameter($key, $value): string|null
     {
         if ($value === true) {
-
             return sprintf('--%s', $key);
         }
 
         if (!is_bool($value)) {
-            
             return sprintf(
                 '--%s=%s',
                 $key,
@@ -95,7 +103,10 @@ abstract class AbstractDmtx
         return null;
     }
 
-    protected function run($cmd, $input = null, array $extras = [])
+    /**
+     * @param false|null|string $input
+     */
+    protected function run($cmd, string|false|null $input = null, array $extras = [])
     {
         $process = $this->getProcess($cmd, $extras, $input);
 

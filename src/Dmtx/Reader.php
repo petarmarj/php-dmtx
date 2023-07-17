@@ -6,7 +6,12 @@ use Symfony\Component\OptionsResolver\OptionsResolver;
 
 class Reader extends AbstractDmtx
 {
-    protected $arguments = [
+    /**
+     * @var string[]
+     *
+     * @psalm-var array{0: 'newline', 1: 'unicode', 2: 'milliseconds', 3: 'codewords', 4: 'minimum-edge', 5: 'maximum-edge', 6: 'gap', 7: 'page', 8: 'square-deviation', 9: 'resolution', 10: 'symbol-size', 11: 'threshold', 12: 'x-range-min', 13: 'x-range-max', 14: 'y-range-min', 15: 'y-range-max', 16: 'corrections-max', 17: 'diagnose', 18: 'mosaic', 19: 'stop-after', 20: 'page-numbers', 21: 'corners', 22: 'shrink'}
+     */
+    protected array $arguments = [
         'newline',
         'unicode',
         'milliseconds',
@@ -32,6 +37,9 @@ class Reader extends AbstractDmtx
         'shrink'
     ];
 
+    /**
+     * @return void
+     */
     protected function setDefaultOptions(OptionsResolver $resolver)
     {
         $resolver->setDefaults([

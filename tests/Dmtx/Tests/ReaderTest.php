@@ -12,7 +12,8 @@ class ReaderTest extends TestCase
     /** @var array */
     private $options;
 
-    protected function setUp(): void {
+    protected function setUp(): void
+    {
         $this->reader = new Reader($this->options ?? []);
     }
 
@@ -22,12 +23,12 @@ class ReaderTest extends TestCase
             'simpleMessageShouldBeValid' => [
                 [],
                 ['yo'],
-                dirname(__FILE__).'/rsc/yo.png'
+                dirname(__FILE__) . '/rsc/yo.png'
             ],
             'multiMessagesShouldBeValid' => [
                 [],
                 ['yo','this','is','a','message'],
-                dirname(__FILE__).'/rsc/yos.png'
+                dirname(__FILE__) . '/rsc/yos.png'
             ]
         ];
     }

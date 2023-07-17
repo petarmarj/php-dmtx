@@ -19,7 +19,8 @@ class WriterTest extends TestCase
     /** @var array */
     private $messages;
 
-    protected function setUp(): void {
+    protected function setUp(): void
+    {
         $this->writer = new Writer($this->options ?? []);
         $this->writer->encode($this->messages ?? []);
 
@@ -110,7 +111,7 @@ class WriterTest extends TestCase
         $this->messages = $messages;
         $this->setUp();
 
-        $tmpfile = tempnam(sys_get_temp_dir(), 'dmtx-test-unit-').'.png';
+        $tmpfile = tempnam(sys_get_temp_dir(), 'dmtx-test-unit-') . '.png';
 
         $this->writer->saveAs($tmpfile);
 

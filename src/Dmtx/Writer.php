@@ -6,7 +6,12 @@ use Symfony\Component\OptionsResolver\OptionsResolver;
 
 class Writer extends AbstractDmtx
 {
-    protected $arguments = [
+    /**
+     * @var string[]
+     *
+     * @psalm-var array{0: 'encoding', 1: 'module', 2: 'symbol-size', 3: 'format', 4: 'resolution', 5: 'margin', 6: 'gs1'}
+     */
+    protected array $arguments = [
         'encoding',
         'module',
         'symbol-size',
@@ -16,6 +21,9 @@ class Writer extends AbstractDmtx
         'gs1',
     ];
 
+    /**
+     * @return void
+     */
     protected function setDefaultOptions(OptionsResolver $resolver)
     {
         $resolver->setDefaults([
@@ -50,12 +58,14 @@ class Writer extends AbstractDmtx
                 'tif',
                 'gif',
                 'pdf',
+                'svg'
             ],
             'symbol-size' => [
                 'square-auto',
                 'rectangle-auto',
                 '10x10',
                 '24x24',
+                '16x48',
                 '64x64',
             ],
         ];
@@ -73,7 +83,7 @@ class Writer extends AbstractDmtx
         }
     }
 
-    public function encode($message)
+    public function encode($message): static
     {
         if (is_array($message)) {
             $this->messages = $message;
@@ -103,7 +113,7 @@ class Writer extends AbstractDmtx
         );
     }
 
-    private function getMessage()
+    private function getMessage(): string
     {
         return implode(
             $this->options['message-separator'],
